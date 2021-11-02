@@ -11,6 +11,17 @@
 		<p>{{ tip.content }}</p>
 		<p>{{ tip.author }}</p>
 		<p>{{ tip.date }}</p>
+		{% if user.is_authenticated %}
+		<form method="post" action="{% url 'vote' tip.pk %}">
+			{% csrf_token %}
+			<button type="submit" name="upvote" value="Upvote">Upvote: {{ tip.define_total_upvotes }}</button>
+			<button type="submit" name="downvote" value="Downvote">Downvote: {{ tip.define_total_downvotes }}</button>
+		</form>
+		<form method="post" action="{% url 'delete' tip.pk %}">
+			{% csrf_token %}
+			<button type="submit" name="delete" value="Delete">Delete</button>
+		</form>
+		{% endif %}
 	</li>
 	{% endfor %}
 </ul>

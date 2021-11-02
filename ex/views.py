@@ -1,5 +1,5 @@
 from django import forms
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, Http404
 from django.shortcuts import redirect, render
 from django.contrib import auth
 
@@ -85,4 +85,43 @@ def logout(request):
 	if not request.user.is_authenticated:
 		return redirect('home')
 	auth.logout(request)
+	return redirect('home')
+
+def vote(request, pk):
+	if not request.user.is_authenticated:
+		return redirect('home')
+
+	if request.method == 'POST':
+		upvote = request.POST.get('upvote')
+		downvote = request.POST.get('downvote')
+		tip = Tip.objects.get(pk=pk)
+		if not tip:
+			raise Http404("Tip does not exist")
+		if upvote:
+			if request.user in tip.upvotes.all():
+				tip.upvotes.remove(request.user)
+			else:
+				tip.upvotes.add(request.user)
+				tip.downvotes.remove(request.user)
+			tip.save()
+		elif downvote:
+			if request.user in tip.downvotes.all():
+				tip.downvotes.remove(request.user)
+			else:
+				tip.downvotes.add(request.user)
+				tip.upvotes.remove(request.user)
+			tip.save()
+
+	return redirect('home')
+
+
+def delete(request, pk):
+	if not request.user.is_authenticated:
+		return redirect('home')
+
+	if request.method == 'POST':
+		tip = Tip.objects.get(pk=pk)
+		if not tip:
+			raise Http404("Tip does not exist")
+		tip.delete()
 	return redirect('home')
