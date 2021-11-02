@@ -1,16 +1,33 @@
-<nav class="navbar navbar-default navbar-static-top">
-<div class="container-fluid">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Life Pro Tips!</a>
+      </div>
 
-<!-- Brand/logo -->
-<div class="navbar-header">
-    {% if username %}
-    <p class="navbar-brand">Hello {{ username }}!</p>
-    {% else %}
-    <a class="navbar-brand">ERROR!</a>
-    {% endif %}
-    <a class="navbar-brand" href="/login">Login</a>
-    <a class="navbar-brand" href="/register">Register</a>
-</div>
-
-</div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a>Hello {{username}}!</a></li>
+        </ul>
+        {% if user.is_authenticated %}
+        <ul class="nav navbar-nav">
+            <li><a href='/logout'>Logout</a></li>
+        </ul>
+        {% else %}
+        <ul class="nav navbar-nav">
+            <li><a href='/login'>Login</a></li>
+        </ul>
+        <ul class="nav navbar-nav">
+            <li><a href='/register'>Register</a></li>
+        </ul>
+        {% endif %}
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
 </nav>

@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block tile %}Default title{% endblock %}</title>
-    {% block style %}
-    {% endblock %}
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 </head>
 <body>
     {% block body %}
