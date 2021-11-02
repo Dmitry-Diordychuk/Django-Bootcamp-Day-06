@@ -1,0 +1,13 @@
+{% extends 'ex/base.html' %}
+{% block title %}Home page{% endblock %}
+
+{% block style %}
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+{% endblock %}
+
+{% block body %}
+{% include 'ex/nav.html' %}
+<h1>Home page</h1>
+{% lorem 5 p %}
+{% endblock %}

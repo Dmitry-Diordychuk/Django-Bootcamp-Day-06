@@ -1,0 +1,3 @@
+db.sqlite3
+ex/migrations
+ex/__pycache__

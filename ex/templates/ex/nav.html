@@ -1,0 +1,16 @@
+<nav class="navbar navbar-default navbar-static-top">
+<div class="container-fluid">
+
+<!-- Brand/logo -->
+<div class="navbar-header">
+    {% if username %}
+    <p class="navbar-brand">Hello {{ username }}!</p>
+    {% else %}
+    <a class="navbar-brand">ERROR!</a>
+    {% endif %}
+    <a class="navbar-brand" href="/login">Login</a>
+    <a class="navbar-brand" href="/register">Register</a>
+</div>
+
+</div>
+</nav>
