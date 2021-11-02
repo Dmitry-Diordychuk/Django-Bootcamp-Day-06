@@ -1,5 +1,6 @@
 from django import forms
-from .models import User
+from django.db.models import fields
+from .models import User, Tip
 
 class RegisterForm(forms.Form):
 	username = forms.CharField(required=True, max_length=150)
@@ -58,3 +59,8 @@ class LoginForm(forms.Form):
                 "Wrong password"
             )
 		return cleaned_data
+
+class TipForm(forms.ModelForm):
+	class Meta:
+		model = Tip
+		fields = {'content'}

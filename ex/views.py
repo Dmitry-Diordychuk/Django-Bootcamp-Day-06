@@ -5,8 +5,8 @@ from django.contrib import auth
 
 from django.conf import settings
 import random
-from .forms import LoginForm, RegisterForm
-from .models import User
+from .forms import LoginForm, RegisterForm, TipForm
+from .models import User, Tip
 
 def get_username(request):
 	if request.user.is_authenticated:
@@ -21,9 +21,20 @@ def get_username(request):
 
 # Create your views here.
 def home(request):
+	form = TipForm()
+	if request.method == 'POST' and request.user.is_authenticated:
+		form = TipForm(request.POST)
+		if form.is_valid():
+			tip = form.save(commit=False)
+			tip.author = request.user
+			tip.save()
+			form = TipForm()
 
+	tips = Tip.objects.all()
 	return render(request, 'ex/home.html', {
-		'username': get_username(request)
+		'username': get_username(request),
+		'form': form,
+		'tips': tips,
 	})
 
 def login(request):

@@ -3,6 +3,23 @@
 
 {% block body %}
 {% include 'ex/nav.html' %}
-<h1>Home page</h1>
-{% lorem 5 p %}
+
+<h1>Tips</h1>
+<ul>
+	{% for tip in tips %}
+	<li>
+		<p>{{ tip.content }}</p>
+		<p>{{ tip.author }}</p>
+		<p>{{ tip.date }}</p>
+	</li>
+	{% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+<form method="post" action="{% url 'home' %}">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="submit" />
+</form>
+{% endif %}
 {% endblock %}

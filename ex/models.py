@@ -8,3 +8,8 @@ class User(AbstractUser):
 
 	def __str__(self):
 		return str(self.username)
+
+class Tip(models.Model):
+	content = models.TextField(null=False)
+	author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+	date = models.DateField(auto_now_add=True, null=False)
