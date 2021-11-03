@@ -15,8 +15,8 @@ def get_username(request):
 		username = request.session.get('username')
 		if not username:
 			request.session['username'] = random.choice(settings.USERS_NAMES)
-			request.session.save()
 			username = request.session.get('username')
+			request.session.save()
 	return username
 
 # Create your views here.
@@ -50,6 +50,7 @@ def login(request):
 			user = auth.authenticate(request, username=username, password=password)
 			if user is not None:
 				auth.login(request, user)
+				request.session.set_expiry(0)
 				return redirect('home')
 	return render(request, 'ex/login.html', {
 		'username': get_username(request),

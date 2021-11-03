@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ex.middleware.SessionMiddleware'
 ]
 
 ROOT_URLCONF = 'd06.urls'
@@ -129,6 +130,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "ex.User"
 
 SESSION_COOKIE_AGE = 42
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = False
 
 USERS_NAMES = [
     'Erminio',
