@@ -19,10 +19,12 @@
 			<button type="submit" name="upvote" value="Upvote">Upvote</button>
 			<button type="submit" name="downvote" value="Downvote">Downvote</button>
 		</form>
+		{% if perms.ex.can_delete_tip or tip.author.id == user.id %}
 		<form method="post" action="{% url 'delete' tip.pk %}">
 			{% csrf_token %}
 			<button type="submit" name="delete" value="Delete">Delete</button>
 		</form>
+		{% endif %}
 		{% endif %}
 	</li>
 	{% endfor %}

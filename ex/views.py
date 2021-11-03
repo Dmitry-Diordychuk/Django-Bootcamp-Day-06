@@ -120,9 +120,16 @@ def delete(request, pk):
 	if not request.user.is_authenticated:
 		return redirect('home')
 
+	tip = Tip.objects.get(pk=pk)
+	if not tip:
+		raise Http404("Tip does not exist")
+
+	if (
+		not request.user.has_perm('ex.can_delete_tip') \
+		and not request.user == tip.author
+	):
+		return redirect('home')
+
 	if request.method == 'POST':
-		tip = Tip.objects.get(pk=pk)
-		if not tip:
-			raise Http404("Tip does not exist")
 		tip.delete()
 	return redirect('home')
